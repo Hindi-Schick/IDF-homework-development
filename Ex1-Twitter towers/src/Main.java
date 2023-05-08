@@ -42,75 +42,10 @@ public class Main {
                                 System.out.println("Cannot print triangle");
                             } else {
                                 if (triBase % 2 == 1 && triBase < triHeight * 2) {
-                                    int numSpaces = triHeight - 1;
-                                    int numStars = 1;
-                                    int numMiddleRows = (triBase - 1) / 2;
-                                    int numTopRows = (triHeight - numMiddleRows) / 2;
-                                    int numBottomRows = triHeight - numTopRows - numMiddleRows;
+                                    int numOfRows = (triHeight - 2)/(triBase / 2 - 1);
+                                    printTriangle (triBase, triHeight, 1, 1, numOfRows);
 
-                                    // Print top rows
-                                    for (int i = 0; i < numTopRows; i++) {
-                                        printRow(numSpaces, numStars);
-                                        numSpaces--;
-                                        numStars += 2;
-                                    }
-
-                                    // Print middle rows
-                                    for (int i = 0; i < numMiddleRows; i++) {
-                                        printRow(numSpaces, numStars);
-                                        numSpaces--;
-                                        numStars += 2;
-                                    }
-
-                                    // Print bottom rows
-                                    for (int i = 0; i < numBottomRows; i++) {
-                                        printRow(numSpaces, numStars);
-                                        numSpaces--;
-                                        numStars += 2;
-                                    }
-                                } else {
-                                    System.out.println("Triangle not prin table.");
                                 }
-
-
-
-                                /*int rows = triHeight;
-                                int firstGroup = 3;
-                                int mod = (rows - 2) % (triBase - 2);
-                                int mod2 = mod;
-                                int doubleRow = (rows - 2) / (triBase - 2);
-                                int asterisks = 1;
-
-                                for (int i = 1; i <= rows; i++) {
-                                    for (int j = 1; j <= (rows - asterisks) / 2; j++) {
-                                        System.out.print(" ");
-                                    }
-                                    for (int j = 1; j <= asterisks; j++) {
-                                        System.out.print("*");
-                                    }
-                                    System.out.println();
-
-                                    if ((i - mod2 - 1) % doubleRow == 0) {
-                                        if (mod != 0 && asterisks == firstGroup){
-                                            mod -= 1;
-                                        }
-                                        else {
-                                            asterisks += 2;
-                                        }
-                                    }
-                                }
-                                int middle = triBase / 2 + 1;
-                                for (int i = 1; i <= triHeight; i++) {
-                                    int stars = i * 2 - 1;
-                                    int dots = middle - i;
-                                    for (int j = 1; j <= dots; j++) {
-                                        System.out.print(".");
-                                    }
-                                    for (int j = 1; j <= stars; j++) {
-                                        System.out.print("*");
-                                    }
-                                    System.out.println();
-                                }*/
                             }
                         }
                     }
@@ -123,14 +58,47 @@ public class Main {
         scanner.close();
     }
 
-    private static void printRow(int numSpaces, int numStars) {
+    public static void printTriangle(int triBase, int triHeight, int i, int j, int numOfRows) {
+        if (i == 1) {
+            printRow(triBase, i, 1);
+            printTriangle(triBase, triHeight, i+numOfRows, j+2, numOfRows);
+        } else if (i >= triHeight) {
+            printRow(triBase, triBase, 1);
+            return;
+        } else {
+            if (j == 3){
+                int mod = (triHeight - 2)%(triBase / 2 - 1);
+                if (mod == 0){
+                    printRow(triBase, j, numOfRows);
+                }
+                else {
+                    printRow(triBase, j, numOfRows+mod);
+                }
+                printTriangle(triBase, triHeight, i+numOfRows, j+2, numOfRows);
+            }
+            else {
+                printRow(triBase, j, numOfRows);
+                printTriangle(triBase, triHeight, i+numOfRows, j+2, numOfRows);
+            }
+        }
+
+    }
+
+    private static void printRow(int width, int row, int numOfRows) {
+        int numSpaces = (width - row / 2);
+        for ( int i = 0; i < numSpaces; i++) {
+            System.out.print(" ");
+        }
+        for (int i = 0; i < row ; i++) {
+            System.out.print("*");
+        }
         for (int i = 0; i < numSpaces; i++) {
             System.out.print(" ");
         }
-        for (int i = 0; i < numStars; i++) {
-            System.out.print("*");
-        }
         System.out.println();
+        if (numOfRows != 1) {
+            printRow(width, row, numOfRows - 1);
+        }
     }
 }
 

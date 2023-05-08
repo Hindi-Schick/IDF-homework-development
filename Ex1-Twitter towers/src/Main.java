@@ -41,11 +41,8 @@ public class Main {
                             if (triBase % 2 == 0 || triBase > triHeight * 2) {
                                 System.out.println("Cannot print triangle");
                             } else {
-                                if (triBase % 2 == 1 && triBase < triHeight * 2) {
-                                    int numOfRows = (triHeight - 2)/(triBase / 2 - 1);
-                                    printTriangle (triBase, triHeight, 1, 1, numOfRows);
-
-                                }
+                                int numOfRows = (triHeight - 2)/(triBase / 2 - 1);
+                                printTriangle (triBase, triHeight, 1, 1, numOfRows);
                             }
                         }
                     }
@@ -62,7 +59,7 @@ public class Main {
         if (i == 1) {
             printRow(triBase, i, 1);
             printTriangle(triBase, triHeight, i+numOfRows, j+2, numOfRows);
-        } else if (i >= triHeight) {
+        } else if (i >= triHeight-1) {
             printRow(triBase, triBase, 1);
             return;
         } else {

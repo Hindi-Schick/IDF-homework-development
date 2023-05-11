@@ -1,27 +1,21 @@
 package com.hindischick.COVID19MS.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.hindischick.COVID19MS.utils.Dates;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+
 import org.joda.time.LocalDate;
-import java.util.Date;
+
 
 import static com.hindischick.COVID19MS.model.Employee.EmployeeBuilder.aEmployee;
 
 public class EmployeeIn implements Serializable {
-
-    @NotNull
-    @Column(nullable = false, updatable = false)
-    private Date createdAt = Dates.nowUTC();
 
     @NotEmpty
     @Length(max = 60)
@@ -45,62 +39,37 @@ public class EmployeeIn implements Serializable {
 
     @Length(max = 20)
     private String mobilePhone;
-
-    private Date vaccine1Date;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate vaccine1Date;
 
     private String vaccine1Manufacturer;
-
-    private Date vaccine2Date;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate vaccine2Date;
 
     private String vaccine2Manufacturer;
-
-    private Date vaccine3Date;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate vaccine3Date;
 
     private String vaccine3Manufacturer;
-
-    private Date vaccine4Date;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate vaccine4Date;
 
     private String vaccine4Manufacturer;
-    private Date positiveResultDate;
-
-    private Date recoveryDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate positiveResultDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate recoveryDate;
 
 
     public Employee toEmployee() {
         return aEmployee().fullname(fullname).city(city).street(street).houseNumber(houseNumber).
                 birthDate(birthDate.toDate()).telephone(telephone).mobilePhone(mobilePhone)
-                .vaccine1Date(vaccine1Date).vaccine1Manufacturer(vaccine1Manufacturer)
-                .vaccine2Date(vaccine2Date).vaccine2Manufacturer(vaccine2Manufacturer)
-                .vaccine3Date(vaccine3Date).vaccine3Manufacturer(vaccine3Manufacturer)
-                .vaccine4Date(vaccine4Date).vaccine4Manufacturer(vaccine4Manufacturer)
-                .positiveResultDate(positiveResultDate).recoveryDate(recoveryDate)
+                .vaccine1Date(vaccine1Date.toDate()).vaccine1Manufacturer(vaccine1Manufacturer)
+                .vaccine2Date(vaccine2Date.toDate()).vaccine2Manufacturer(vaccine2Manufacturer)
+                .vaccine3Date(vaccine3Date.toDate()).vaccine3Manufacturer(vaccine3Manufacturer)
+                .vaccine4Date(vaccine4Date.toDate()).vaccine4Manufacturer(vaccine4Manufacturer)
+                .positiveResultDate(positiveResultDate.toDate()).recoveryDate(recoveryDate.toDate())
                 .build();
-    }
-
-    /*public void updateEmployee(Employee employee) {
-        employee.setBirthDate(Dates.atUtc(birthDate));
-        employee.setFullname(fullname);
-        employee.setTelephone(telephone);
-        employee.setMobilePhone(mobilePhone);
-        employee.setCity(city);
-        employee.setStreet(street);
-        employee.setHouseNumber(houseNumber);
-        employee.setVaccine1Date(vaccine1Date);
-        employee.setVaccine1Manufacturer(vaccine1Manufacturer);
-        employee.setVaccine2Date(vaccine2Date);
-        employee.setVaccine2Manufacturer(vaccine2Manufacturer);
-        employee.setVaccine3Date(vaccine3Date);
-        employee.setVaccine3Manufacturer( vaccine3Manufacturer);
-        employee.setVaccine4Date(vaccine4Date);
-        employee.setVaccine4Manufacturer(vaccine4Manufacturer);
-    }*/
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public String getFullname() {
@@ -167,11 +136,11 @@ public class EmployeeIn implements Serializable {
         this.mobilePhone = mobilePhone;
     }
 
-    public Date getVaccine1Date() {
+    public LocalDate getVaccine1Date() {
         return vaccine1Date;
     }
 
-    public void setVaccine1Date(Date vaccine1Date) {
+    public void setVaccine1Date(LocalDate vaccine1Date) {
         this.vaccine1Date = vaccine1Date;
     }
 
@@ -183,11 +152,11 @@ public class EmployeeIn implements Serializable {
         this.vaccine1Manufacturer = vaccine1Manufacturer;
     }
 
-    public Date getVaccine2Date() {
+    public LocalDate getVaccine2Date() {
         return vaccine2Date;
     }
 
-    public void setVaccine2Date(Date vaccine2Date) {
+    public void setVaccine2Date(LocalDate vaccine2Date) {
         this.vaccine2Date = vaccine2Date;
     }
 
@@ -199,11 +168,11 @@ public class EmployeeIn implements Serializable {
         this.vaccine2Manufacturer = vaccine2Manufacturer;
     }
 
-    public Date getVaccine3Date() {
+    public LocalDate getVaccine3Date() {
         return vaccine3Date;
     }
 
-    public void setVaccine3Date(Date vaccine3Date) {
+    public void setVaccine3Date(LocalDate vaccine3Date) {
         this.vaccine3Date = vaccine3Date;
     }
 
@@ -215,11 +184,11 @@ public class EmployeeIn implements Serializable {
         this.vaccine3Manufacturer = vaccine3Manufacturer;
     }
 
-    public Date getVaccine4Date() {
+    public LocalDate getVaccine4Date() {
         return vaccine4Date;
     }
 
-    public void setVaccine4Date(Date vaccine4Date) {
+    public void setVaccine4Date(LocalDate vaccine4Date) {
         this.vaccine4Date = vaccine4Date;
     }
 
@@ -231,19 +200,19 @@ public class EmployeeIn implements Serializable {
         this.vaccine4Manufacturer = vaccine4Manufacturer;
     }
 
-    public Date getPositiveResultDate() {
+    public LocalDate getPositiveResultDate() {
         return positiveResultDate;
     }
 
-    public void setPositiveResultDate(Date positiveResultDate) {
+    public void setPositiveResultDate(LocalDate positiveResultDate) {
         this.positiveResultDate = positiveResultDate;
     }
 
-    public Date getRecoveryDate() {
+    public LocalDate getRecoveryDate() {
         return recoveryDate;
     }
 
-    public void setRecoveryDate(Date recoveryDate) {
+    public void setRecoveryDate(LocalDate recoveryDate) {
         this.recoveryDate = recoveryDate;
     }
 }

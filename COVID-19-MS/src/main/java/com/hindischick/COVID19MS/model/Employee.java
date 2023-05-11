@@ -19,16 +19,6 @@ import java.util.Date;
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @NotNull
-    @Column(nullable = false, updatable = false)
-    private Date createdAt = Dates.nowUTC();
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonProperty("createdAt")
-    public LocalDateTime calcCreatedAt() {
-        return Dates.atLocalTime(createdAt);
-    }
-
     @NotEmpty
     @Length(max = 60)
     private String fullname;
@@ -70,14 +60,6 @@ public class Employee implements Serializable {
     private Date vaccine4Date;
 
     private String vaccine4Manufacturer;
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public String getFullname() {
         return fullname;
@@ -228,7 +210,6 @@ public class Employee implements Serializable {
     private Date recoveryDate;
 
     public static final class EmployeeBuilder {
-        private @NotNull Date createdAt;
         private @NotEmpty @Length(max = 60) String fullname;
         private String city;
         private String street;
@@ -257,11 +238,6 @@ public class Employee implements Serializable {
 
         public static EmployeeBuilder anEmployee() {
             return new EmployeeBuilder();
-        }
-
-        public EmployeeBuilder createdAt(Date createdAt) {
-            this.createdAt = createdAt;
-            return this;
         }
 
         public EmployeeBuilder fullname(String fullname) {
@@ -356,7 +332,6 @@ public class Employee implements Serializable {
 
         public Employee build() {
             Employee employee = new Employee();
-            employee.setCreatedAt(createdAt);
             employee.setFullname(fullname);
             employee.setCity(city);
             employee.setStreet(street);

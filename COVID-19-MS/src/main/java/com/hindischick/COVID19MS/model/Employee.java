@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="employee")
+@Table(name="employees")
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -60,6 +60,10 @@ public class Employee implements Serializable {
     private Date vaccine4Date;
 
     private String vaccine4Manufacturer;
+
+    private Date positiveResultDate;
+
+    private Date recoveryDate;
 
     public String getFullname() {
         return fullname;
@@ -204,10 +208,6 @@ public class Employee implements Serializable {
     public void setRecoveryDate(Date recoveryDate) {
         this.recoveryDate = recoveryDate;
     }
-
-    private Date positiveResultDate;
-
-    private Date recoveryDate;
 
     public static final class EmployeeBuilder {
         private @NotEmpty @Length(max = 60) String fullname;

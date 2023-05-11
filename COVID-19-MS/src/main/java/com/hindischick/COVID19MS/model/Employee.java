@@ -1,7 +1,10 @@
 package com.hindischick.COVID19MS.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hindischick.COVID19MS.utils.Dates;
 import org.hibernate.validator.constraints.Length;
+import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -20,6 +23,12 @@ public class Employee implements Serializable {
     @Column(nullable = false, updatable = false)
     private Date createdAt = Dates.nowUTC();
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("createdAt")
+    public LocalDateTime calcCreatedAt() {
+        return Dates.atLocalTime(createdAt);
+    }
+
     @NotEmpty
     @Length(max = 60)
     private String fullname;
@@ -27,11 +36,20 @@ public class Employee implements Serializable {
     private String city;
 
     private String street;
+
+    private int houseNumber;
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     private Date birthDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonProperty("birthDate")
+    public LocalDateTime calcBirthDate() {
+        return Dates.atLocalTime(birthDate);
+    }
 
     @Length(max = 20)
     private String telephone;
@@ -83,6 +101,14 @@ public class Employee implements Serializable {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public int getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(int houseNumber) {
+        this.houseNumber = houseNumber;
     }
 
     public Long getId() {
@@ -206,6 +232,7 @@ public class Employee implements Serializable {
         private @NotEmpty @Length(max = 60) String fullname;
         private String city;
         private String street;
+        private int houseNumber;
         private Long id;
         private Date birthDate;
         private @Length(max = 20) String telephone;
@@ -222,6 +249,10 @@ public class Employee implements Serializable {
         private Date recoveryDate;
 
         private EmployeeBuilder() {
+        }
+
+        public static EmployeeBuilder aEmployee() {
+            return new EmployeeBuilder();
         }
 
         public static EmployeeBuilder anEmployee() {
@@ -245,6 +276,11 @@ public class Employee implements Serializable {
 
         public EmployeeBuilder street(String street) {
             this.street = street;
+            return this;
+        }
+
+        public EmployeeBuilder houseNumber(int houseNumber) {
+            this.houseNumber = houseNumber;
             return this;
         }
 
@@ -324,6 +360,7 @@ public class Employee implements Serializable {
             employee.setFullname(fullname);
             employee.setCity(city);
             employee.setStreet(street);
+            employee.setHouseNumber(houseNumber);
             employee.setId(id);
             employee.setBirthDate(birthDate);
             employee.setTelephone(telephone);

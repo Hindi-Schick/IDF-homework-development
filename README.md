@@ -10,6 +10,7 @@ Docker
 To run this application locally, you can follow these steps:
 
 Clone the repository to your local machine:
+
 git clone https://github.com/Hindi-Schick/IDF-homework-development.git
 
 https://www.docker.com/products/docker-desktop
@@ -43,4 +44,5 @@ Make your changes and commit them.
 Push your changes to your fork.
 Create a pull request.
 
+![image](https://github.com/Hindi-Schick/IDF-homework-development/assets/117584595/6f8840f1-4e29-4484-896c-949d599a48b8)
 

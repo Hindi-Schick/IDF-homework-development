@@ -23,6 +23,8 @@ Build the Maven project:<br>
 mvn clean install<br>
 
 Build the Docker image with the following command:<br>
+docker run -d -p 5432:5432 -v postgresdata:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres postgres
+
 docker build -t idf-homework .<br>
 
 Run the Docker container with the following command:<br>
